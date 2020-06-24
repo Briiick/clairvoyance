@@ -1,0 +1,1 @@
+<p>To run this app first run <b>npm install</b> then <b>npm start</b></p>
