@@ -2,10 +2,10 @@
 FROM node:latest
 
 # set working directory
-WORKDIR /Client
+WORKDIR /frontend
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+# add `/node_modules/.bin` to $PATH
+ENV PATH ../node_modules/.bin:$PATH
 
 # install app dependencies
 COPY package.json ./
@@ -14,7 +14,7 @@ RUN npm install --silent
 RUN npm install react-scripts@3.4.1 -g --silent
 
 # add app
-COPY . ./
+COPY . /frontend
 
 # start app
 CMD ["npm", "start"]
