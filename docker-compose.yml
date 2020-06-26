@@ -1,7 +1,17 @@
 version: '3.8'
 
 services:
-
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app/backend
+    ports:
+      - '8000:8000'
+    stdin_open: true
+    tty: true
+    command: python3 manage.py runserver 0.0.0.0:8000
   frontend:
     container_name: Clairvoyance_FE
     build:
@@ -14,6 +24,6 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
       - NODE_ENV=development
-    command: ["npm", "start"]
+    command: ['npm', 'start']
     stdin_open: true
     tty: true
