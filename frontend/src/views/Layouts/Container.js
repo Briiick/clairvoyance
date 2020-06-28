@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
+// react container 
 export default (props) => {
   return (
     <Container>

@@ -8,4 +8,5 @@ import store from './store';
 
 const root = document.getElementById('root');
 
+// render app state
 ReactDOM.render(<Provider store={store}><AppState /></Provider>, root);
