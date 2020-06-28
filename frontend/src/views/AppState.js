@@ -4,6 +4,7 @@ import Axios from '../utils/axios';
 import { connect } from 'react-redux';
 import { updateAccount } from '../store/actions_creators';
 
+// maintain state using redux
 const AppState = (props) => {
 
   const [loading, setLoading] = useState(localStorage.getItem('loggedIn') ? true : false);

@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { updateAccount } from '../../store/actions_creators';
 
+// set up header for blog
 const Export = (props) => {
 
   const [menuToggle, setMenu] = useState(false);
@@ -43,6 +44,7 @@ const Export = (props) => {
 
 }
 
+// saving dispatch and state to props
 const mapDispatchToProps = (dispatch) => {
   return {
 		updateAccount: (data) => {
@@ -57,6 +59,7 @@ const mapStateToProps = (state) => {
   }
 }
 
+// export header
 export default connect(mapStateToProps, mapDispatchToProps)(Export);
 
 let Header = styled.div`
