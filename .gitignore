@@ -29,7 +29,6 @@ yarn-error.log*
 */*/*/__pycache__/
 */*/__pycache__/
 */__pycache__/
-db.sqlite3
 media
 
 # python 
