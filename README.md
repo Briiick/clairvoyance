@@ -49,7 +49,8 @@ docker-compose up -d --build
 
 TESTING IN CONTAINER:
 
-```docker-compose run \
+```
+docker-compose run \
  -e DJANGO_SETTINGS_MODULE=djangodocker.settings.settings_test \
  --no-deps --rm clairvoyance py.test;
 ```
