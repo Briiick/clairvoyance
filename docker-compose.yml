@@ -4,7 +4,11 @@ services:
   backend:
     build:
       context: ./backend
+      args:
+        requirements: requirements/requirements_dev.txt
       dockerfile: Dockerfile
+    environment:
+      - DJANGO_SETTINGS_MODULE=clairvoyance.settings.settings_dev
     volumes:
       - ./backend:/app/backend
     ports:

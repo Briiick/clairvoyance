@@ -1,12 +1,15 @@
 # Use an official Python runtime as a parent image
 FROM python:3.6
 
+# Setting which requirements to be used
+ARG requirements=requirements/requirements_prod.txt
+ENV DJANGO_SETTINGS_MODULE=clairvoyance.settings.settings_prod
 # Adding backend directory to make absolute filepaths consistent across services
 WORKDIR /app/backend
 
 # Install Python dependencies
-COPY requirements.txt /app/backend
-RUN pip3 install --upgrade pip -r requirements.txt
+COPY requirements/ /app/backend/requirements
+RUN pip3 install --upgrade pip -r $requirements
 
 # Add the rest of the code
 COPY . /app/backend
