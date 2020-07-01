@@ -51,8 +51,8 @@ TESTING IN CONTAINER:
 
 ```
 docker-compose run \
- -e DJANGO_SETTINGS_MODULE=djangodocker.settings.settings_test \
- --no-deps --rm clairvoyance py.test;
+ -e DJANGO_SETTINGS_MODULE=clairvoyance.settings.settings_test \
+ --no-deps --rm backend py.test;
 ```
 
 - Uses -e for passing a new environment variable, this starts the application with that djangodocker.settings.testing settings.
