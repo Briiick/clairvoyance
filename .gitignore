@@ -30,6 +30,7 @@ yarn-error.log*
 */*/__pycache__/
 */__pycache__/
 media
+db.sqlite3
 
 # python 
 *.py[cod] 
