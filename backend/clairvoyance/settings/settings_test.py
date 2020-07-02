@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'api',
     'users',
     'goals',
+    'habits',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
