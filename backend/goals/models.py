@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+# from posts.models import Post
 
 # Create your models here.
 class Goal(models.Model):
@@ -16,3 +17,15 @@ class Goal(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+class GoalUpdate(models.Model):
+    user = models.ForeignKey(User, models.CASCADE, related_name='user_goal_updates')
+    # post = models.ForeignKey(Post, models.CASCADE, related_name='post_goal_updates')
+    goal = models.ForeignKey(Goal, models.CASCADE, related_name='goal_updates')
+    progress = models.FloatField(blank=True)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.content)

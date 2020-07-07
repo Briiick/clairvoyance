@@ -11,7 +11,6 @@ class HabitList(APIView):
     permission_classes = [IsOwner]
 
     def get(self, request, format=None):
-        print(request.user)
         habits = Habit.objects.filter(user_id=request.user)
         serializer = HabitSerializer(habits, many=True)
         return Response(serializer.data)

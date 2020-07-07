@@ -4,4 +4,5 @@ urlpatterns = [
 	path('accounts/', include('rest_auth.urls')),
     path('habits/', include('habits.urls')),
     path('goals/', include('goals.urls')),
+    path('posts/', include('posts.urls'))
 ]
