@@ -27,7 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
         habitUpdate_data = validated_data.pop('habitUpdate')
         post = Post.objects.create(**validated_data)
         if habitUpdate:
-            HabitUpdate.objects.create(post=post, **habitUpdate_data)
-        for goalUpdate_data in goalUpdates_data:
-            GoalUpdate.objects.create(post=post, **goalUpdate_data)
+            HabitUpdate.objects.create(**habitUpdate_data)
+        for goalUpdate_data in goalUpdates:
+            GoalUpdate.objects.create(**goalUpdate_data)
         return post
