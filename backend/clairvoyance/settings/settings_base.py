@@ -29,14 +29,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'allauth',
+    'allauth.account',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_auth.registration',
+    'rest_auth',
     'api',
     'users.apps.UsersConfig',
     'goals',
     'habits',
     'posts',
-    'rest_auth',
 ]
 
 MIDDLEWARE = [
@@ -104,9 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 
@@ -140,7 +140,7 @@ REST_FRAMEWORK = {
 
 SITE_ID = 1
 
-# Allauth configuration
+# Configuration
 AUTH_USER_MODEL = 'users.User'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True

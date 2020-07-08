@@ -12,14 +12,14 @@ class PostsList(APIView):
     permission_classes = [IsOwner]
 
     def get(self, request, format=None):
-        posts = Post.objects.filter(user_id=request.user)
+        posts = Post.objects.filter(user=request.user)
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(user_id=request.user)
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

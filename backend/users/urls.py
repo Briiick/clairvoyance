@@ -2,5 +2,5 @@ from django.urls import path
 from users import views
 
 urlpatterns = [
-	path('', views.GoogleView.as_view()),
+	path('', views.TeamList.as_view()),
 ]

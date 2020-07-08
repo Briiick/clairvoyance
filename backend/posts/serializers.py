@@ -23,10 +23,11 @@ class PostSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        goalUpdates = validated_data.pop('goalUpdate')
-        habitUpdate_data = validated_data.pop('habitUpdate')
+        goalUpdates = validated_data.pop('goal_updates')
+        habitUpdates = validated_data.pop('habit_updates')
+        print("VD", validated_data)
         post = Post.objects.create(**validated_data)
-        if habitUpdate:
+        for habitUpdate_data in habitUpdates:
             HabitUpdate.objects.create(**habitUpdate_data)
         for goalUpdate_data in goalUpdates:
             GoalUpdate.objects.create(**goalUpdate_data)
