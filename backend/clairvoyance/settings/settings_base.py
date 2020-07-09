@@ -110,12 +110,15 @@ AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+    
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 
 # Social Auth
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '922987180247-lkgdgj3ulfs089fgn2rk10paiiheckhd.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'QUzd74p8XUzTrxH9eTg5zC7p'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1040384808344-dt25mbe0sjqvku261pt00gutg1secph0.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'g5sb_F4HpY4Ey0O7IXlR6mVb'
 
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True

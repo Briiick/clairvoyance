@@ -1,4 +1,5 @@
 from django.urls import include, path
+from django.conf.urls import url
 
 urlpatterns = [
 	path('users/', include('rest_auth.urls')),
@@ -7,5 +8,5 @@ urlpatterns = [
     path('goals/', include('goals.urls')),
     path('posts/', include('posts.urls')),
     path('teams/', include('users.urls')),
-    path("users/o/", include('socialLogin.urls')),
+    path('social/', include('socialLogin.urls')),
 ]
