@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 // react container 
 export default (props) => {
   return (
-    <Container>
+    <Container fluid="md">
       <Row>
         {
           props.singleCol === true ? 

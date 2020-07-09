@@ -47,7 +47,7 @@ export default (props) => {
     <React.Fragment>
       <Loading waiting={loading} >
         { articles.map((article, index) => <Article shortVersion={props.shortVersion} key={index} article={article} />) }
-        { articles.length < 1 ? (<p className="lead">No news articles to show up.</p>) : null}
+        { articles.length < 1 ? (<p className="lead">No news articles to show up!</p>) : null}
         { !props.shortVersion ? (
           <Pagination current={page - 1} counting={pages} whenClicked={props.shortVersion === false && props.page ? updatePage : setPage} />
         ) : articles.length > 1 ? (<Link to="/articles/1">

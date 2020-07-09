@@ -18,7 +18,7 @@ export default (props) => {
   const Redirect = props.history.replace;
 
   useEffect(() => {
-    const getArticle = async () => {
+    const getArticle = async () => { 
       const result = await Axios.get(`/articles/fetchOne/${Slug}`);
       if(result.data !== null) {
         setArticle(result.data);
