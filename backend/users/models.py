@@ -9,3 +9,23 @@ class User(AbstractUser):
 
     def __str__(self):
         return str(self.email)
+
+# Creates Team Model
+class Team(models.Model):
+    name = models.CharField(max_length=120, unique=True)
+    description = models.TextField()
+    # logo = models.ImageField(blank=True)
+    users = models.ManyToManyField(User)
+
+    def __str__(self):
+        return str(self.name)
+
+# Creates Manager for Adding Users to Team
+class TeamManager(models.Manager):
+    use_for_related_fields = True
+
+    def add_user(self, user, team):
+        team.user_set.add(user)
+
+    def remove_user(self, user, team):
+        team.user_set.remove(user)
