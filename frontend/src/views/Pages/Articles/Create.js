@@ -29,7 +29,11 @@ export default (props) => {
         <Formik
           enableReinitialize
           validationSchema={newsSchema}
-          initialValues={{ title: "", goals: [{ goal: "", content: "" }] }}
+          initialValues={{
+            title: "",
+            goals: [{ goal: "", content: "" }],
+            metrics: [{ metric: "", content: "" }],
+          }}
           onSubmit={(values, actions) => {
             Axios.post("/articles/create", { form: values })
               .then((res) =>
@@ -72,91 +76,123 @@ export default (props) => {
                     </Form.Text>
                   )}
                 </Form.Group>
-                <FieldArray
-                  name="goals"
-                  render={(arrayHelpers) => {
-                    return (
-                      <React.Fragment>
-                        {values.goals.map((goal, index) => {
-                          return (
-                            <React.Fragment key={index}>
-                              <Form.Group>
-                                {console.log("TESt", values.goals[index].goal)}
-                                <select
-                                  name={`goals[${index}].goal`}
-                                  value={values.goals[index].goal}
-                                  // onChange={(event) => {
-                                  //   console.log(event.target.value);
-                                  //   values.goals[index].goal =
-                                  //     event.target.value;
-                                  // }}
-                                  onChange={handleChange}
-                                >
-                                  <option value="" label="Choose your Goal" />
-                                  <option value="goal_1" label="goal_1" />
-                                  <option value="goal_2" label="goal_2" />
-                                  <option value="goal_3" label="goal_3" />
-                                  <option value="goal_4" label="goal_4" />
-                                </select>
-                                {console.log("RENDER")}{" "}
-                                {/* <DropdownButton
-                                  name={`goals[${index}].goal`}
-                                  title={
-                                    values.goals[index].goal
-                                      ? values.goals[index].goal
-                                      : "Select Goal"
-                                  }
-                                  onSelect={(eventKey) => {
-                                    values.goals[index].goal = eventKey;
-                                    console.log("VALJES", values);
-                                  }}
-                                >
-                                  <Dropdown.Item eventKey="goal_1">
-                                    Goal 1
-                                  </Dropdown.Item>
-                                  <Dropdown.Item eventKey="goal_2">
-                                    Goal 2
-                                  </Dropdown.Item>
-                                  <Dropdown.Item eventKey="goal_3">
-                                    Goal 3
-                                  </Dropdown.Item>
-                                  <Dropdown.Divider />
-                                  <Dropdown.Item>Create New Goal</Dropdown.Item>
-                                </DropdownButton> */}
-                              </Form.Group>
-                              <Form.Group>
-                                <Form.Label>Summary</Form.Label>
-                                <CKEditor
-                                  editor={ClassicEditor}
-                                  onChange={(event, editor) => {
-                                    values.goals[
-                                      index
-                                    ].content = editor.getData();
-                                  }}
-                                />
-                                {errors.shortContent &&
-                                  touched.shortContent && (
-                                    <Form.Text className="text-danger">
-                                      {errors.shortContent}
-                                    </Form.Text>
-                                  )}
-                              </Form.Group>
-                            </React.Fragment>
-                          );
-                        })}
-                        <Button
-                          variant="primary"
-                          type="button"
-                          onClick={() => {
-                            arrayHelpers.push({ goal: "", content: "" });
-                          }}
-                        >
-                          Add Goal
-                        </Button>
-                      </React.Fragment>
-                    );
-                  }}
-                />
+                <Form.Group>
+                  <Form.Label>Goals</Form.Label>
+                  <FieldArray
+                    name="goals"
+                    render={(arrayHelpers) => {
+                      return (
+                        <React.Fragment>
+                          {values.goals.map((goal, index) => {
+                            return (
+                              <React.Fragment key={index}>
+                                <Form.Group>
+                                  <Form.Control
+                                    as="select"
+                                    name={`goals[${index}].goal`}
+                                    value={values.goals[index].goal}
+                                    onChange={handleChange}
+                                  >
+                                    <option value="" label="Choose your Goal" />
+                                    <option value="goal_1" label="goal_1" />
+                                    <option value="goal_2" label="goal_2" />
+                                    <option value="goal_3" label="goal_3" />
+                                    <option value="goal_4" label="goal_4" />
+                                  </Form.Control>
+                                </Form.Group>
+                                <Form.Group>
+                                  <CKEditor
+                                    editor={ClassicEditor}
+                                    onChange={(event, editor) => {
+                                      values.goals[
+                                        index
+                                      ].content = editor.getData();
+                                    }}
+                                  />
+                                  {errors.shortContent &&
+                                    touched.shortContent && (
+                                      <Form.Text className="text-danger">
+                                        {errors.shortContent}
+                                      </Form.Text>
+                                    )}
+                                </Form.Group>
+                              </React.Fragment>
+                            );
+                          })}
+                          <Button
+                            variant="primary"
+                            type="button"
+                            onClick={() => {
+                              arrayHelpers.push({ goal: "", content: "" });
+                            }}
+                          >
+                            Add Goal
+                          </Button>
+                        </React.Fragment>
+                      );
+                    }}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Metrics</Form.Label>
+                  <FieldArray
+                    name="metrics"
+                    render={(arrayHelpers) => {
+                      return (
+                        <React.Fragment>
+                          {values.metrics.map((metric, index) => {
+                            return (
+                              <React.Fragment key={index}>
+                                <Form.Group>
+                                  <Form.Control
+                                    as="select"
+                                    name={`metrics[${index}].metric`}
+                                    value={values.metrics[index].metric}
+                                    onChange={handleChange}
+                                  >
+                                    <option
+                                      value=""
+                                      label="Choose your Tracked Metric"
+                                    />
+                                    <option value="metric_1" label="metric_1" />
+                                    <option value="metric_2" label="metric_2" />
+                                    <option value="metric_3" label="metric_3" />
+                                    <option value="metric_4" label="metric_4" />
+                                  </Form.Control>
+                                </Form.Group>
+                                <Form.Group>
+                                  <CKEditor
+                                    editor={ClassicEditor}
+                                    onChange={(event, editor) => {
+                                      values.metrics[
+                                        index
+                                      ].content = editor.getData();
+                                    }}
+                                  />
+                                  {errors.shortContent &&
+                                    touched.shortContent && (
+                                      <Form.Text className="text-danger">
+                                        {errors.shortContent}
+                                      </Form.Text>
+                                    )}
+                                </Form.Group>
+                              </React.Fragment>
+                            );
+                          })}
+                          <Button
+                            variant="primary"
+                            type="button"
+                            onClick={() => {
+                              arrayHelpers.push({ goal: "", content: "" });
+                            }}
+                          >
+                            Add Goal
+                          </Button>
+                        </React.Fragment>
+                      );
+                    }}
+                  />
+                </Form.Group>
                 <Button variant="primary" type="submit" disabled={isSubmitting}>
                   Submit
                 </Button>
