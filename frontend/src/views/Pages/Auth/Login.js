@@ -22,8 +22,8 @@ const Login = (props) => {
 		<Container singleCol={true}>
 			<div className={"align-middle"}>
 			<Row className={"justify-content-center"}>
-			<Col lg={3}>
-				<h1>Login</h1>
+			<Col xs={3} sm={3} md={3} lg={3}>
+				<h1 className={"text-center"}>login</h1>
 				<br />
 				{alert.type !== null ? <Alert variant={alert.type}>{alert.message}</Alert> : null}
 				<Formik
@@ -66,7 +66,7 @@ const Login = (props) => {
 								/>
 								{errors.password && touched.password && <Form.Text className="text-danger">{errors.password}</Form.Text>}
 							</Form.Group>
-							<Button variant="primary" type="submit" disabled={isSubmitting}>Submit</Button>
+							<Button variant="primary" type="submit" disabled={isSubmitting}>submit</Button>
 						</Form>
 					)}
 				/>
