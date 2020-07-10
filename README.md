@@ -66,10 +66,9 @@ RUNNING BACKEND:
 ```
 docker-compose up backend
 docker-compose run backend bash
-python manage.py makemigrations
 python manage.py migrate
 ```
 
 - This will setup your backend and run the migrations for the data models. To access any of the endpoints go to localhost:8000 and you will be prompted with options.
-- The first step will be login so head over to localhost:8000/api/v1/accounts/login/ and send a post request with a email and password (e.g., in Postman).
+- The first step will be login so head over to localhost:8000/api/v1/users/login/ and send a post request with a email and password (e.g., in Postman).
 - To retrieve any data checkout localhost:8000/api/v1/ for possible options.
