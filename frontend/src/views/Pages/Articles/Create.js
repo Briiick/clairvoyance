@@ -87,7 +87,28 @@ export default (props) => {
                             return (
                               <React.Fragment key={index}>
                                 <Form.Group>
+                                  {/* <Form.Label>
+                                    <Form.Control
+                                      as="input"
+                                      tyoe="text"
+                                      list="goal"
+                                    />
+                                  </Form.Label>
+
                                   <Form.Control
+                                    as="datalist"
+                                    id="goal"
+                                    name={`goals[${index}].goal`}
+                                    value={values.goals[index].goal}
+                                    onChange={handleChange}
+                                  >
+                                    <option value="" label="Choose your Goal" />
+                                    <option value="goal_1" label="goal_1" />
+                                    <option value="goal_2" label="goal_2" />
+                                    <option value="goal_3" label="goal_3" />
+                                    <option value="goal_4" label="goal_4" />
+                                  </Form.Control> */}
+                                  {/* <Form.Control
                                     as="select"
                                     name={`goals[${index}].goal`}
                                     value={values.goals[index].goal}
@@ -98,7 +119,20 @@ export default (props) => {
                                     <option value="goal_2" label="goal_2" />
                                     <option value="goal_3" label="goal_3" />
                                     <option value="goal_4" label="goal_4" />
-                                  </Form.Control>
+                                  </Form.Control> */}
+                                  <input
+                                    list="browsers"
+                                    name="myBrowser"
+                                    placeholder="Choose a Goal"
+                                  />
+                                  <datalist id="browsers">
+                                    <option value="Chrome" />
+                                    <option value="Firefox" />
+                                    <option value="Internet Explorer" />
+                                    <option value="Opera" />
+                                    <option value="Safari" />
+                                    <option value="Microsoft Edge" />
+                                  </datalist>
                                 </Form.Group>
                                 <Form.Group>
                                   <CKEditor
@@ -126,7 +160,7 @@ export default (props) => {
                               arrayHelpers.push({ goal: "", content: "" });
                             }}
                           >
-                            Add Goal
+                            Add Goal Update
                           </Button>
                         </React.Fragment>
                       );
@@ -186,7 +220,7 @@ export default (props) => {
                               arrayHelpers.push({ goal: "", content: "" });
                             }}
                           >
-                            Add Goal
+                            Add Metric Update
                           </Button>
                         </React.Fragment>
                       );
