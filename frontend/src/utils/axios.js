@@ -1,11 +1,24 @@
 import axios from "axios";
 
-// establish instance for axios.
-// Axios is an HTTP client that allows us to make GET and POST requests from the browser.
-const instance = axios.create({
-  baseURL: "http://localhost:8000",
+const API = axios.create({
+  baseURL: "http://localhost:8000/api/v1",
   timeout: 1000,
   withCredentials: true,
 });
 
-export default instance;
+async function createPost(formData) {
+  try {
+    const token = localStorage.getItem("token");
+    const payload = { user: "", team: "", ...formData };
+    console.log("payload", payload);
+    const response = await API.post("/notes/", payload, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+    return response;
+  } catch (e) {
+    throw Error(e);
+  }
+}
+export { createPost, API };

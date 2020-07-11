@@ -5,8 +5,9 @@ import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { newsSchema } from "../../../utils/validations";
 import Header from "../../Layouts/Header";
-import Axios from "../../../utils/axios";
+import { QAPI } from "../../../utils/axios";
 import Container from "../../Layouts/Container";
+import { createPost } from "../../../utils/axios";
 
 export default (props) => {
   const [alert, updateAlert] = useState({ type: null, message: null });
@@ -28,24 +29,47 @@ export default (props) => {
 
         <Formik
           enableReinitialize
-          validationSchema={newsSchema}
+          // validationSchema={newsSchema}
           initialValues={{
             title: "",
-            goals: [{ goal: "", content: "" }],
-            metrics: [{ metric: "", content: "" }],
+            goal_updates: [
+              {
+                user: "",
+                goal: "",
+                progress: "",
+                content: "",
+              },
+            ],
+            habit_updates: [
+              {
+                user: "",
+                habit: "",
+                value: "",
+                content: "",
+              },
+            ],
           }}
           onSubmit={(values, actions) => {
-            Axios.post("/articles/create", { form: values })
-              .then((res) =>
-                setAlert({
-                  type: "success",
-                  message: `Article '${values.title}' published to homepage.`,
-                })
-              )
+            // const response = await createNote(title, blocks, flashcards);
+            console.log("Testing");
+            createPost(values)
+              .then((res) => {
+                console.log("response", res);
+              })
               .catch((err) => {
-                setAlert({ type: "danger", message: err.response.data.error });
-                actions.setSubmitting(false);
+                console.log(err);
               });
+            // Axios.post("/articles/create", { form: values })
+            //   .then((res) =>
+            //     setAlert({
+            //       type: "success",
+            //       message: `Article '${values.title}' published to homepage.`,
+            //     })
+            //   )
+            //   .catch((err) => {
+            //     setAlert({ type: "danger", message: err.response.data.error });
+            //     actions.setSubmitting(false);
+            //   });
           }}
           render={({
             values,
@@ -60,6 +84,7 @@ export default (props) => {
           }) => {
             return (
               <Form onSubmit={handleSubmit}>
+                {console.log("values", values)}{" "}
                 <Form.Group>
                   <Form.Label>Title</Form.Label>
                   <Form.Control
@@ -79,27 +104,18 @@ export default (props) => {
                 <Form.Group>
                   <Form.Label>Goals</Form.Label>
                   <FieldArray
-                    name="goals"
+                    name="goal_updates"
                     render={(arrayHelpers) => {
                       return (
                         <React.Fragment>
-                          {values.goals.map((goal, index) => {
+                          {values.goal_updates.map((goal, index) => {
                             return (
                               <React.Fragment key={index}>
                                 <Form.Group>
-                                  {/* <Form.Label>
-                                    <Form.Control
-                                      as="input"
-                                      tyoe="text"
-                                      list="goal"
-                                    />
-                                  </Form.Label>
-
-                                  <Form.Control
-                                    as="datalist"
-                                    id="goal"
-                                    name={`goals[${index}].goal`}
-                                    value={values.goals[index].goal}
+                                  {/* <Form.Control
+                                    as="select"
+                                    name={`goal_updates[${index}].goal`}
+                                    value={values.goal_updates[index].goal}
                                     onChange={handleChange}
                                   >
                                     <option value="" label="Choose your Goal" />
@@ -109,9 +125,16 @@ export default (props) => {
                                     <option value="goal_4" label="goal_4" />
                                   </Form.Control> */}
                                   {/* <Form.Control
-                                    as="select"
-                                    name={`goals[${index}].goal`}
-                                    value={values.goals[index].goal}
+                                    as="input"
+                                    tyoe="text"
+                                    list="goal"
+                                  />
+
+                                  <Form.Control
+                                    as="datalist"
+                                    id="goal"
+                                    name={`goal_updates[${index}].goal`}
+                                    value={values.goal_updates[index].goal}
                                     onChange={handleChange}
                                   >
                                     <option value="" label="Choose your Goal" />
@@ -121,11 +144,18 @@ export default (props) => {
                                     <option value="goal_4" label="goal_4" />
                                   </Form.Control> */}
                                   <input
-                                    list="browsers"
-                                    name="myBrowser"
-                                    placeholder="Choose a Goal"
+                                    list="goals"
+                                    placeholder="Choose or Create a Goal"
+                                    name={`goal_updates[${index}].goal`}
+                                    value={values.goal_updates[index].goal}
+                                    onChange={handleChange}
                                   />
-                                  <datalist id="browsers">
+                                  <datalist
+                                    name={`goal_updates[${index}].goal`}
+                                    value={values.goal_updates[index].goal}
+                                    onChange={handleChange}
+                                    id="goals"
+                                  >
                                     <option value="Chrome" />
                                     <option value="Firefox" />
                                     <option value="Internet Explorer" />
@@ -138,7 +168,7 @@ export default (props) => {
                                   <CKEditor
                                     editor={ClassicEditor}
                                     onChange={(event, editor) => {
-                                      values.goals[
+                                      values.goal_updates[
                                         index
                                       ].content = editor.getData();
                                     }}
@@ -170,18 +200,18 @@ export default (props) => {
                 <Form.Group>
                   <Form.Label>Metrics</Form.Label>
                   <FieldArray
-                    name="metrics"
+                    name="habit_updates"
                     render={(arrayHelpers) => {
                       return (
                         <React.Fragment>
-                          {values.metrics.map((metric, index) => {
+                          {values.habit_updates.map((metric, index) => {
                             return (
                               <React.Fragment key={index}>
                                 <Form.Group>
                                   <Form.Control
                                     as="select"
-                                    name={`metrics[${index}].metric`}
-                                    value={values.metrics[index].metric}
+                                    name={`habit_updates[${index}].habit`}
+                                    value={values.habit_updates[index].habit}
                                     onChange={handleChange}
                                   >
                                     <option
@@ -198,7 +228,7 @@ export default (props) => {
                                   <CKEditor
                                     editor={ClassicEditor}
                                     onChange={(event, editor) => {
-                                      values.metrics[
+                                      values.habit_updates[
                                         index
                                       ].content = editor.getData();
                                     }}
