@@ -5,36 +5,71 @@ import Loading from "../../Loading";
 import Axios from "../../../utils/axios";
 
 export default (props) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  //   const [loading, setLoading] = useState(true);
 
-  const [post, setPost] = useState({});
+  const [profile, setProfile] = useState({
+    name: "name",
+    posts: [],
+    metrics: [],
+  });
 
   /// Don't know what this is
   const Slug = props.match.params.slug;
   const Redirect = props.history.replace;
 
   useEffect(() => {
-    const getPost = async () => {
+    const getProfile = async () => {
       const result = await Axios.get(`/articles/fetchOne/${Slug}`);
       if (result.data !== null) {
-        setPost(result.data);
+        setProfile(result.data);
         setLoading(false);
       } else {
         Redirect("/");
       }
     };
-    getPost();
+    getProfile();
   }, [Redirect, Slug]);
   ///^ idk what these r
 
   return (
     <React.Fragment>
       <Loading waiting={loading}>
-        <Header title={`Post - ${post.title}`} />
+        <Header title={`Profile - ${profile.profile}`} />
         <Container singleCol={true}>
-          <h1>{post.title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: post.fullContent }}></div>
-          <b>Post written by {post.author.username}</b>
+          <div>Image</div>
+          <h1>{profile.name}</h1>
+          <h2>Metrics</h2>
+          {profile.metrics.length > 0 ? (
+            profile.metrics.map((post) => {
+              return (
+                <React.Fragment>
+                  <div>Metric title</div>
+                  <div>Metric value</div>
+                </React.Fragment>
+              );
+            })
+          ) : (
+            <div>No Tracked Metrics Yet</div>
+          )}
+          <h2>Posts</h2>
+          {profile.posts.length > 0 ? (
+            profile.posts.map((post) => {
+              return (
+                <React.Fragment>
+                  <div>Post title</div>
+                  <div>Post desc</div>
+                </React.Fragment>
+              );
+            })
+          ) : (
+            <div>No Posts Yet</div>
+          )}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: profile.fullContent,
+            }}
+          ></div>
         </Container>
       </Loading>
     </React.Fragment>

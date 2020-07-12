@@ -19,7 +19,12 @@ const App = (props) => {
         <Route path="/" exact component={Home} />
         <Route path="/articles/:page" exact component={Articles} />
         <Route path="/article/:slug" exact component={Article} />
-        <Route path="/profile/:id" exact component={Profile} />
+        <Route
+          path="/profile/:id"
+          exact
+          component={Profile}
+          account={props.account}
+        />
         <AdminRoute
           path="/post-article"
           exact
