@@ -21,10 +21,8 @@ const Register = (props) => {
   return (
     <React.Fragment>
       <Container singleCol={true}>
-        {/* I can't seem to figure out the vertical alignment on this */}
-        {/* <div className={""}> */}
         <Row className={"justify-content-center"}>
-          <Col xs={3} sm={3} md={3} lg={3}>
+          <Col xs={5} sm={4} md={3} lg={3}>
             <h1 className={"text-center"}>register</h1>
             <br />
             {alert.type !== null ? (
@@ -135,12 +133,14 @@ const Register = (props) => {
                       </Form.Text>
                     )}
                   </Form.Group>
-                  {/* also not sure why this button isn't vertically aligned and why the border is not showing. Probably something in _variables.scss */}
                   <Button
                     className={"btn-group-vertical"}
-                    variant="primary"
+                    variant="secondary"
                     type="submit"
                     disabled={isSubmitting}
+                    style={{
+                      border: 1,
+                    }}
                   >
                     submit
                   </Button>
@@ -148,13 +148,13 @@ const Register = (props) => {
               )}
             />
             <div style={{ textAlign: "center" }}>
+              <br />
               <p>
                 want to log in? <Link to="/auth/login">click here.</Link>
               </p>
             </div>
           </Col>
         </Row>
-        {/* </div> */}
       </Container>
     </React.Fragment>
   );

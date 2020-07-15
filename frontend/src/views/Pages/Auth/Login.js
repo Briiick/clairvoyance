@@ -8,6 +8,7 @@ import Axios from '../../../utils/axios';
 import Container from '../../Layouts/Container';
 import { Link } from 'react-router-dom';
 
+import "../../../assets/sass/bootstrap.scss";
 
 const Login = (props) => {	
 	const [alert, updateAlert] = useState({ type: null, message: null });
@@ -20,9 +21,8 @@ const Login = (props) => {
 	return (
 		<React.Fragment>
 		<Container singleCol={true}>
-			<div className={"align-middle"}>
-			<Row className={"justify-content-center"}>
-			<Col xs={3} sm={3} md={3} lg={3}>
+			<Row className={"justify-content-center vertical-center"}>
+			<Col xs={5} sm={4} md={3} lg={3}>
 				<h1 className={"text-center"}>login</h1>
 				<br />
 				{alert.type !== null ? <Alert variant={alert.type}>{alert.message}</Alert> : null}
@@ -43,7 +43,15 @@ const Login = (props) => {
 						});
 					}}
 					render={({ values, errors, status, touched, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
-						<Form onSubmit={handleSubmit}>
+						<Form 
+							onSubmit={handleSubmit}
+							className={"justify-content-center"}
+							style={{
+						  	display: "flex",
+						  	flexDirection: "column",
+						  	alignItems: "center",
+							}}
+						>
 							<Form.Group>
 								<Form.Control
 									type="text"
@@ -66,16 +74,25 @@ const Login = (props) => {
 								/>
 								{errors.password && touched.password && <Form.Text className="text-danger">{errors.password}</Form.Text>}
 							</Form.Group>
-							<Button variant="primary" type="submit" disabled={isSubmitting}>submit</Button>
+							<Button 
+								className={"btn-group-vertical"}
+								variant="secondary" 
+								type="submit" 
+								disabled={isSubmitting}
+							>
+								submit
+							</Button>
 						</Form>
 					)}
 				/>
-				<div className={"align-middle"}>
-					<p>want to register? <Link to="/auth/register">click here.</Link></p>
+				<div style={{ textAlign: "center" }}>
+					<br />
+					<p>
+						want to register? <Link to="/auth/register">click here.</Link>
+					</p>
 				</div>
 			</Col>
 			</Row>
-			</div>
 		</Container>
 		</React.Fragment>
 	)
