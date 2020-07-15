@@ -19,19 +19,22 @@ const Export = (props) => {
   return (
     <React.Fragment>
       <Helmet>
-        <title>Blog - {props.title}</title>
-        <meta name="description" content="React application" />
+        <title>{props.title}</title>
+        <meta name="description" content="Clairvoyance, an accountability blog." />
       </Helmet>
       <Header menuToggle={menuToggle}>
         <Container className="content">
           <div className="logo">
-            <div className="logo-text">Blog</div>
+            <Link className="logo-text" to="/">Clairvoyance</Link>
           </div>
           <div className="menu">
-            <Link className="item" to="/">Home</Link>
+            <Link className="item" to="/timeline">Timeline</Link>
             {props.account === null ? <Link className="item" to="/auth/login">Login</Link> : null}
             {props.account === null ? <Link className="item" to="/auth/register">Register</Link> : null}
             {props.account !== null && props.account.admin != null ? <Link className="item" to={`/post-article`}>Add Article</Link>  : null}
+            {props.account !== null ? <Link className="item" to="/analytics">Analytics</Link> : null}
+            {props.account !== null ? <Link className="item" to="/team">Team</Link> : null}
+            {props.account !== null ? <Link className="item" to="/profile">Profile</Link> : null}
             {props.account !== null ? <div className="item" onClick={logOut}>Log out</div> : null}
           </div>
           <div onClick={() => { setMenu(!menuToggle) }} className="menu-button">
@@ -63,7 +66,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Export);
 
 let Header = styled.div`
-  background: #bb5252;
+  background: #000000;
   margin-bottom: 20px;
   @media (max-width: 1100px) {
     margin-bottom: 15px;
