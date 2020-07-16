@@ -10,14 +10,14 @@ import { Link } from 'react-router-dom';
 
 import "../../../assets/sass/bootstrap.scss";
 
-const Login = (props) => {	
-	const [alert, updateAlert] = useState({ type: null, message: null });
+const Login = (props) => {
+  const [alert, updateAlert] = useState({ type: null, message: null });
 
-	function setAlert(obj) {
-		updateAlert(obj);
-		setTimeout(() => updateAlert({ type: null, message: null }), 3000);
-	}
-
+  function setAlert(obj) {
+    updateAlert(obj);
+    setTimeout(() => updateAlert({ type: null, message: null }), 3000);
+  }
+  
 	return (
 		<React.Fragment>
 		<Container singleCol={true}>
@@ -98,17 +98,17 @@ const Login = (props) => {
 	)
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    account: state.account
-  }
-}
-const mapDispatchToProps = dispatch => {
-	return {
-		updateAccount: (data) => {
-			dispatch(updateAccount(data))
-		}
-	};
+    account: state.account,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateAccount: (data) => {
+      dispatch(updateAccount(data));
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

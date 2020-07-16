@@ -60,3 +60,15 @@ docker-compose run \
 - Uses --rm for removing the container when the tests are finished.
 - app references our application (a.k.a. service) in docker-compose. So we are saying we want to start a new process from this service.
 - py.test is the command to be run in our service.
+
+RUNNING BACKEND:
+
+```
+docker-compose up backend
+docker-compose run backend bash
+python manage.py migrate
+```
+
+- This will setup your backend and run the migrations for the data models. To access any of the endpoints go to localhost:8000 and you will be prompted with options.
+- The first step will be login so head over to localhost:8000/api/v1/users/login/ and send a post request with a email and password (e.g., in Postman).
+- To retrieve any data checkout localhost:8000/api/v1/ for possible options.
