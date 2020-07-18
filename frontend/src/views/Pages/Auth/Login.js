@@ -32,7 +32,7 @@ const Login = (props) => {
               validationSchema={loginSchema}
               initialValues={{ email: "", password: "" }}
               onSubmit={(values, actions) => {
-                API.post("/auth/login", { form: values })
+                API.post("https://localhost/api/v1/users/login", { form: values })
                   .then((res) => {
                     updateAlert({
                       type: "success",
