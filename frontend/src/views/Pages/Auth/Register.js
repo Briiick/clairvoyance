@@ -4,7 +4,7 @@ import { updateAccount } from "../../../store/actions_creators";
 import { Alert, Col, Form, Button, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import { registerSchema } from "../../../utils/validations";
-import Axios from "../../../utils/axios";
+import { API } from "../../../utils/axios";
 import Container from "../../Layouts/Container";
 import { Link } from "react-router-dom";
 
@@ -38,7 +38,7 @@ const Register = (props) => {
                 cpassword: "",
               }}
               onSubmit={(values, actions) => {
-                Axios.post("https://localhost/api/v1/users/registration", { form: values })
+                API.post("https://localhost/api/v1/users/registration", { form: values })
                   .then((res) => {
                     updateAlert({
                       type: "success",

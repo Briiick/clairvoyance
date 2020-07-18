@@ -1,11 +1,14 @@
 import axios from "axios";
 
+// this creates our instance for Axios, a library used to make promise-based HTTP requests
+// the instance allows you to set common settings for all requests
 const API = axios.create({
   baseURL: "http://localhost:8000/api/v1",
   timeout: 1000,
   withCredentials: true,
 });
 
+// 
 async function createPost(formData) {
   try {
     const token = localStorage.getItem("token");
