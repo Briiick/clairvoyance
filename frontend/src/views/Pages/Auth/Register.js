@@ -38,7 +38,7 @@ const Register = (props) => {
                 cpassword: "",
               }}
               onSubmit={(values, actions) => {
-                API.post("https://localhost/api/v1/users/registration", { form: values })
+                API.post("https://localhost:8000/api/v1/users/registration", { form: values })
                   .then((res) => {
                     updateAlert({
                       type: "success",
