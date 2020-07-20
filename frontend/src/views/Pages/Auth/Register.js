@@ -50,7 +50,7 @@ const Register = (props) => {
                   .catch((err) => {
                     setAlert({
                       type: "danger",
-                      message: err.response.data.error,
+                      message: `Login failed.` //err.response.data.error,
                     });
                     actions.setSubmitting(false);
                   });
