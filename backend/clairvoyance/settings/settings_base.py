@@ -82,11 +82,14 @@ WSGI_APPLICATION = 'clairvoyance.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'clairvoyance_db_1',
+        'USER': 'clairvoyance',
+        'PASSWORD': 'MixedBrunch1!',
+        'HOST': 'clairvoyance-db-2.cnroixo79jc9.us-west-2.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -141,6 +144,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
