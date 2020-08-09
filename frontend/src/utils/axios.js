@@ -10,7 +10,7 @@ async function createPost(formData) {
   try {
     const token = localStorage.getItem("token");
     const payload = { user: "", team: "", ...formData };
-    const response = await API.post("/notes/", payload, {
+    const response = await API.post("/posts/", payload, {
       headers: {
         Authorization: `Token ${token}`,
       },
