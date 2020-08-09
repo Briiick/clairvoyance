@@ -16,7 +16,7 @@ class HabitUpdateSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     goal_updates = GoalUpdateSerializer(many=True)
     habit_updates = HabitUpdateSerializer(many=True)
-    # owner = serializers.ReadOnlyField(source='owner.id')
+    user = serializers.ReadOnlyField(source='user.id')
 
     class Meta:
         model = Post

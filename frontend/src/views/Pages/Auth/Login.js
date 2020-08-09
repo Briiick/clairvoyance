@@ -42,10 +42,11 @@ const Login = (props) => {
                     props.updateAccount(res.data);
                   })
                   .catch((err) => {
-                    // setAlert({
-                    //   type: "danger",
-                    //   message: err.response.data.error,
-                    // });
+                    setAlert({
+                      type: "danger",
+                      message:
+                        "Invalid email or password. Please double-check your account details and try again!",
+                    });
                     actions.setSubmitting(false);
                   });
               }}
