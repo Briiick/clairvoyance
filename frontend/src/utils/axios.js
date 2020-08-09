@@ -6,9 +6,10 @@ const API = axios.create({
   withCredentials: true,
 });
 
+const token = localStorage.getItem("clairovoyanceToken");
+
 async function createPost(formData) {
   try {
-    const token = localStorage.getItem("token");
     const payload = { user: "", team: "", ...formData };
     const response = await API.post("/posts/", payload, {
       headers: {

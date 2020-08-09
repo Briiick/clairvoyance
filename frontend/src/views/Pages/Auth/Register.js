@@ -43,7 +43,7 @@ const Register = (props) => {
                       type: "success",
                       message: `You have created a new account successfully. You'll be redireced to homepage..`,
                     });
-                    localStorage.setItem("loggedIn", true);
+                    localStorage.setItem("clairovoyanceToken", res.data.key);
                     props.updateAccount(res.data);
                   })
                   .catch((err) => {
