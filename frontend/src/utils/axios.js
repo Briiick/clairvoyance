@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:8000/api/v1",
+  baseURL: "http://clairvoyance.athanium.com/api/v1/",
   timeout: 1000,
   withCredentials: true,
 });
@@ -11,7 +11,7 @@ async function createPost(formData) {
     const token = localStorage.getItem("token");
     const payload = { user: "", team: "", ...formData };
     console.log("payload", payload);
-    const response = await API.post("/notes/", payload, {
+    const response = await API.post("/posts/", payload, {
       headers: {
         Authorization: `Token ${token}`,
       },
