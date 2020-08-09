@@ -22,6 +22,33 @@ async function createPost(formData) {
   }
 }
 
+async function getGoals() {
+  try {
+    // const payload = { user: "", team: "", ...formData };
+    const response = await API.get("/goals/", {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+    return response;
+  } catch (e) {
+    throw Error(e);
+  }
+}
+async function getHabits() {
+  try {
+    // const payload = { user: "", team: "", ...formData };
+    const response = await API.get("/habits/", {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+    return response;
+  } catch (e) {
+    throw Error(e);
+  }
+}
+
 async function register(data) {
   try {
     const payload = {
@@ -50,4 +77,4 @@ async function login(data) {
   }
 }
 
-export { createPost, register, login, API };
+export { createPost, getGoals, getHabits, register, login, API };
