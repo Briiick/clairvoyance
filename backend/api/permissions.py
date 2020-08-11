@@ -6,12 +6,10 @@ class IsOwner(BasePermission):
     Custom permission to only allow users of an object to edit it.
     """
     def has_permission(self, request, view):
-        # return request.user and request.user.is_authenticated
-        return True
+        return request.user and request.user.is_authenticated
 
     def has_object_permission(self, request, view, obj):
-        # return obj.user == request.user
-        return True
+        return obj.user == request.user
 
 class IsInTeam(BasePermission):
     """
