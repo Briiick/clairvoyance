@@ -25,7 +25,6 @@ class PostSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         goalUpdates = validated_data.pop('goal_updates')
         habitUpdates = validated_data.pop('habit_updates')
-        print("VD", validated_data)
         post = Post.objects.create(**validated_data)
         for habitUpdate_data in habitUpdates:
             HabitUpdate.objects.create(**habitUpdate_data)
