@@ -32,3 +32,10 @@ class PostSerializer(serializers.ModelSerializer):
         for goalUpdate_data in goalUpdates:
             GoalUpdate.objects.create(**goalUpdate_data)
         return post
+
+    def update(self, instance, validated_data):
+        for (key, value) in validated_data.items():
+            setattr(instance, key, value)
+        instance.save()
+        
+        return instance

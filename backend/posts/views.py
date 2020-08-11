@@ -12,6 +12,11 @@ class PostsList(APIView):
     permission_classes = [IsOwner]
 
     def get(self, request, format=None):
+        team_id = request.GET.get('team')
+        if team_id:
+            posts = Post.objects.filter(team=team_id)
+            serializer = PostSerializer(posts, many=True)
+            return Response(serializer.data)
         posts = Post.objects.filter(user=request.user)
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)

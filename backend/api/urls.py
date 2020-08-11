@@ -8,5 +8,6 @@ urlpatterns = [
     path('goals/', include('goals.urls')),
     path('posts/', include('posts.urls')),
     path('teams/', include('users.urls')),
+    path('agreements/', include('agreements.urls')),
     path('social/', include('socialLogin.urls')),
 ]
