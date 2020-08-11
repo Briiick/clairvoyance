@@ -42,10 +42,10 @@ export default (props) => {
     }
   }, [page, pages]);
 
-  const updatePage = (page) => {
-    props.history.replace(`/articles/${page}`);
-    setPage(page);
-  };
+  // const updatePage = (page) => {
+  //   props.history.replace(`/articles/${page}`);
+  //   setPage(page);
+  // };
 
   return (
     <React.Fragment>
@@ -57,17 +57,18 @@ export default (props) => {
             article={article}
           />
         ))}
+        {/* 
         {articles.length < 1 ? (
           <p className="lead">No news articles to show up.</p>
         ) : null}
         {!props.shortVersion ? (
-          <Pagination
-            current={page - 1}
-            counting={pages}
-            whenClicked={
-              props.shortVersion === false && props.page ? updatePage : setPage
-            }
-          />
+          // <Pagination
+          //   current={page - 1}
+          //   counting={pages}
+          //   whenClicked={
+          //     props.shortVersion === false && props.page ? updatePage : setPage
+          //   }
+          // />
         ) : articles.length > 1 ? (
           <Link to="/articles/1">
             <Button variant="primary" className="mb-3">
@@ -75,6 +76,7 @@ export default (props) => {
             </Button>
           </Link>
         ) : null}
+         */}
       </Loading>
     </React.Fragment>
   );
