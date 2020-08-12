@@ -19,26 +19,6 @@ export default (props) => {
     setTimeout(() => updateAlert({ type: null, message: null }), 3000);
   }
 
-  useEffect(() => {
-    getGoals().then((res) => {
-      const goal_options = [];
-      if (res.length > 0) {
-        goal_options = res.map((goal) => {
-          return <option value={goal} />;
-        });
-      }
-      setGoals(goal_options);
-    });
-    getHabits().then((res) => {
-      const habit_options = [];
-      if (res.length > 0) {
-        habit_options = res.map((habit) => {
-          return <option value={habit} label={habit} />;
-        });
-      }
-      setHabits(habit_options);
-    });
-  }, []);
   return (
     <React.Fragment>
       <Header title="Add Update"></Header>
@@ -52,22 +32,8 @@ export default (props) => {
           // validationSchema={newsSchema}
           initialValues={{
             title: "",
-            goal_updates: [
-              {
-                user: "",
-                goal: "",
-                progress: "",
-                content: "",
-              },
-            ],
-            habit_updates: [
-              {
-                user: "",
-                habit: "",
-                value: "",
-                content: "",
-              },
-            ],
+            update: "",
+            future: "",
           }}
           onSubmit={(values, actions) => {
             // const response = await createNote(title, blocks, flashcards);
@@ -120,175 +86,20 @@ export default (props) => {
                   )}
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Goals</Form.Label>
-                  <FieldArray
-                    name="goal_updates"
-                    render={(arrayHelpers) => {
-                      return (
-                        <React.Fragment>
-                          {values.goal_updates.map((goal, index) => {
-                            return (
-                              <React.Fragment key={index}>
-                                <Form.Group>
-                                  {/* <Form.Control
-                                    as="select"
-                                    name={`goal_updates[${index}].goal`}
-                                    value={values.goal_updates[index].goal}
-                                    onChange={handleChange}
-                                  >
-                                    <option value="" label="Choose your Goal" />
-                                    <option value="goal_1" label="goal_1" />
-                                    <option value="goal_2" label="goal_2" />
-                                    <option value="goal_3" label="goal_3" />
-                                    <option value="goal_4" label="goal_4" />
-                                  </Form.Control> */}
-                                  <input
-                                    list="goals"
-                                    placeholder="Choose or Create a Goal"
-                                    name={`goal_updates[${index}].goal`}
-                                    value={values.goal_updates[index].goal}
-                                    onChange={handleChange}
-                                  />
-                                  <datalist
-                                    name={`goal_updates[${index}].goal`}
-                                    value={values.goal_updates[index].goal}
-                                    onChange={handleChange}
-                                    id="goals"
-                                  >
-                                    {goals}
-                                  </datalist>
-                                  {/* <Field
-                                    list="goals"
-                                    placeholder="Choose or Create a Goal"
-                                    name={`goal_updates[${index}].goal`}
-                                    value={values.goal_updates[index].goal}
-                                    onChange={handleChange}
-                                    as="input"
-                                  />
-                                  <Field
-                                    name={`goal_updates[${index}].goal`}
-                                    value={values.goal_updates[index].goal}
-                                    onChange={handleChange}
-                                    id="goals"
-                                    as="datalist"
-                                  >
-                                    <option value="Chrome" />
-                                    <option value="Firefox" />
-                                    <option value="Internet Explorer" />
-                                    <option value="Opera" />
-                                    <option value="Safari" />
-                                    <option value="Microsoft Edge" />
-                                  </Field> */}
-                                </Form.Group>
-                                <Form.Group>
-                                  <CKEditor
-                                    editor={ClassicEditor}
-                                    onChange={(event, editor) => {
-                                      values.goal_updates[
-                                        index
-                                      ].content = editor.getData();
-                                    }}
-                                  />
-                                  {errors.shortContent &&
-                                    touched.shortContent && (
-                                      <Form.Text className="text-danger">
-                                        {errors.shortContent}
-                                      </Form.Text>
-                                    )}
-                                </Form.Group>
-                                {values.goal_updates.length > 1 ? (
-                                  <Button
-                                    type="button"
-                                    onClick={() => arrayHelpers.remove(index)}
-                                  >
-                                    Delete Goal Update
-                                  </Button>
-                                ) : null}
-                              </React.Fragment>
-                            );
-                          })}
-                          <Button
-                            variant="primary"
-                            type="button"
-                            onClick={() => {
-                              arrayHelpers.push({ goal: "", content: "" });
-                            }}
-                          >
-                            Add Goal Update
-                          </Button>
-                        </React.Fragment>
-                      );
+                  <Form.Label>Update</Form.Label>
+                  <CKEditor
+                    editor={ClassicEditor}
+                    onChange={(event, editor) => {
+                      values.update = editor.getData();
                     }}
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Metrics</Form.Label>
-                  <FieldArray
-                    name="habit_updates"
-                    render={(arrayHelpers) => {
-                      return (
-                        <React.Fragment>
-                          {values.habit_updates.map((metric, index) => {
-                            return (
-                              <React.Fragment key={index}>
-                                <Form.Group>
-                                  <Form.Control
-                                    as="select"
-                                    name={`habit_updates[${index}].habit`}
-                                    value={values.habit_updates[index].habit}
-                                    onChange={handleChange}
-                                  >
-                                    <option
-                                      value=""
-                                      label="Choose your Tracked Metric"
-                                    />
-                                    {habits}
-                                  </Form.Control>
-                                </Form.Group>
-                                <Form.Group>
-                                  <CKEditor
-                                    editor={ClassicEditor}
-                                    onChange={(event, editor) => {
-                                      values.habit_updates[
-                                        index
-                                      ].content = editor.getData();
-                                    }}
-                                  />
-                                  <input
-                                    placeholder="Enter Metric Value"
-                                    name={`habit_updates[${index}].value`}
-                                    value={values.habit_updates[index].value}
-                                    onChange={handleChange}
-                                  />
-                                  {errors.shortContent &&
-                                    touched.shortContent && (
-                                      <Form.Text className="text-danger">
-                                        {errors.shortContent}
-                                      </Form.Text>
-                                    )}
-                                </Form.Group>
-                                {values.habit_updates.length > 1 ? (
-                                  <Button
-                                    type="button"
-                                    onClick={() => arrayHelpers.remove(index)}
-                                  >
-                                    Delete Metric Update
-                                  </Button>
-                                ) : null}
-                              </React.Fragment>
-                            );
-                          })}
-                          <Button
-                            variant="primary"
-                            type="button"
-                            onClick={() => {
-                              arrayHelpers.push({ goal: "", content: "" });
-                            }}
-                          >
-                            Add Metric Update
-                          </Button>
-                        </React.Fragment>
-                      );
+                  <Form.Label>Future</Form.Label>
+                  <CKEditor
+                    editor={ClassicEditor}
+                    onChange={(event, editor) => {
+                      values.future = editor.getData();
                     }}
                   />
                 </Form.Group>
