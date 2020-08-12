@@ -39,6 +39,7 @@ const Login = (props) => {
                       message: `You have logged in. You'll be redireced to homepage..`,
                     });
                     localStorage.setItem("clairovoyanceToken", res.data.key);
+                    localStorage.setItem("loggedIn", true);
                     props.updateAccount(res.data);
                   })
                   .catch((err) => {

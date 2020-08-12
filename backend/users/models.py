@@ -15,7 +15,7 @@ class Team(models.Model):
     name = models.CharField(max_length=120, unique=True)
     description = models.TextField()
     # logo = models.ImageField(blank=True)
-    users = models.ManyToManyField(User)
+    users = models.ManyToManyField(User, related_name="team_list")
 
     def __str__(self):
         return str(self.name)

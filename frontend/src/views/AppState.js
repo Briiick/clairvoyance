@@ -6,6 +6,7 @@ import { updateAccount } from "../store/actions_creators";
 
 // maintain state using redux
 const AppState = (props) => {
+  console.log(props);
   const [loading, setLoading] = useState(
     localStorage.getItem("loggedIn") ? true : false
   );
@@ -13,7 +14,11 @@ const AppState = (props) => {
 
   useEffect(() => {
     if (loading) {
-      API.get("/auth/resume")
+      API.get("/users/user/", {
+        headers: {
+          Authorization: `Token ${localStorage.getItem("clairovoyanceToken")}`,
+        },
+      })
         .then((res) => {
           updateAccount(res.data);
           setLoading(false);
