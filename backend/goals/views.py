@@ -11,14 +11,12 @@ class GoalList(APIView):
     permission_classes = [IsOwner]
 
     def get(self, request, format=None):
-        print(request.user)
         goals = Goal.objects.filter(user=request.user)
         serializer = GoalSerializer(goals, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = GoalSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

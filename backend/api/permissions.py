@@ -19,5 +19,4 @@ class IsInTeam(BasePermission):
         return request.user and request.user.is_authenticated
 
     def has_object_permission(self, request, view, obj):
-        print(obj)
         return obj in request.user.team_set.all()
