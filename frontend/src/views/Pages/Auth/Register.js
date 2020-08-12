@@ -4,7 +4,7 @@ import { updateAccount } from "../../../store/actions_creators";
 import { Alert, Col, Form, Button, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import { registerSchema } from "../../../utils/validations";
-import { API } from "../../../utils/axios";
+import { register } from "../../../utils/axios";
 import Container from "../../Layouts/Container";
 import { Link } from "react-router-dom";
 
@@ -37,20 +37,20 @@ const Register = (props) => {
                 cpassword: "",
               }}
               onSubmit={(values, actions) => {
-                API.post("/auth/register", { form: values })
+                register(values)
                   .then((res) => {
                     updateAlert({
                       type: "success",
                       message: `You have created a new account successfully. You'll be redireced to homepage..`,
                     });
-                    localStorage.setItem("loggedIn", true);
+                    localStorage.setItem("clairovoyanceToken", res.data.key);
                     props.updateAccount(res.data);
                   })
                   .catch((err) => {
-                    setAlert({
-                      type: "danger",
-                      message: err.response.data.error,
-                    });
+                    // setAlert({
+                    //   type: "danger",
+                    //   message: err.response.data.error,
+                    // });
                     actions.setSubmitting(false);
                   });
               }}

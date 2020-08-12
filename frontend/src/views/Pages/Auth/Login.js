@@ -4,7 +4,7 @@ import { updateAccount } from "../../../store/actions_creators";
 import { Alert, Col, Form, Button, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import { loginSchema } from "../../../utils/validations";
-import { API } from "../../../utils/axios";
+import { login } from "../../../utils/axios";
 import Container from "../../Layouts/Container";
 import { Link } from "react-router-dom";
 
@@ -32,19 +32,20 @@ const Login = (props) => {
               validationSchema={loginSchema}
               initialValues={{ email: "", password: "" }}
               onSubmit={(values, actions) => {
-                API.post("/auth/login", { form: values })
+                login(values)
                   .then((res) => {
                     updateAlert({
                       type: "success",
-                      message: `You have successfully logged in. You'll be redirected to homepage..`,
+                      message: `You have logged in. You'll be redireced to homepage..`,
                     });
-                    localStorage.setItem("loggedIn", true);
+                    localStorage.setItem("clairovoyanceToken", res.data.key);
                     props.updateAccount(res.data);
                   })
                   .catch((err) => {
                     setAlert({
                       type: "danger",
-                      message: err.response.data.error,
+                      message:
+                        "Invalid email or password. Please double-check your account details and try again!",
                     });
                     actions.setSubmitting(false);
                   });

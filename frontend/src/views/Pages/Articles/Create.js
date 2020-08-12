@@ -1,28 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Field, FieldArray } from "formik";
 import { Alert, Form, Button, DropdownButton, Dropdown } from "react-bootstrap";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { newsSchema } from "../../../utils/validations";
 import Header from "../../Layouts/Header";
-import { QAPI } from "../../../utils/axios";
+import { getGoals, getHabits } from "../../../utils/axios";
 import Container from "../../Layouts/Container";
 import { createPost } from "../../../utils/axios";
 
 export default (props) => {
   const [alert, updateAlert] = useState({ type: null, message: null });
+  const [goals, setGoals] = useState([]);
+  const [habits, setHabits] = useState([]);
 
   function setAlert(obj) {
     updateAlert(obj);
     setTimeout(() => updateAlert({ type: null, message: null }), 3000);
   }
 
+  useEffect(() => {
+    getGoals().then((res) => {
+      const goal_options = [];
+      if (res.length > 0) {
+        goal_options = res.map((goal) => {
+          return <option value={goal} />;
+        });
+      }
+      setGoals(goal_options);
+    });
+    getHabits().then((res) => {
+      const habit_options = [];
+      if (res.length > 0) {
+        habit_options = res.map((habit) => {
+          return <option value={habit} label={habit} />;
+        });
+      }
+      setHabits(habit_options);
+    });
+  }, []);
   return (
     <React.Fragment>
       <Header title="Add Update"></Header>
       <Container singleCol={true}>
-        {/* <h3>Add Update</h3>
-        <hr /> */}
         {alert.type !== null ? (
           <Alert variant={alert.type}>{alert.message}</Alert>
         ) : null}
@@ -51,7 +71,6 @@ export default (props) => {
           }}
           onSubmit={(values, actions) => {
             // const response = await createNote(title, blocks, flashcards);
-            console.log("Testing");
             createPost(values)
               .then((res) => {
                 console.log("response", res);
@@ -84,7 +103,6 @@ export default (props) => {
           }) => {
             return (
               <Form onSubmit={handleSubmit}>
-                {console.log("values", values)}{" "}
                 <Form.Group>
                   <Form.Label>Title</Form.Label>
                   <Form.Control
@@ -124,25 +142,6 @@ export default (props) => {
                                     <option value="goal_3" label="goal_3" />
                                     <option value="goal_4" label="goal_4" />
                                   </Form.Control> */}
-                                  {/* <Form.Control
-                                    as="input"
-                                    tyoe="text"
-                                    list="goal"
-                                  />
-
-                                  <Form.Control
-                                    as="datalist"
-                                    id="goal"
-                                    name={`goal_updates[${index}].goal`}
-                                    value={values.goal_updates[index].goal}
-                                    onChange={handleChange}
-                                  >
-                                    <option value="" label="Choose your Goal" />
-                                    <option value="goal_1" label="goal_1" />
-                                    <option value="goal_2" label="goal_2" />
-                                    <option value="goal_3" label="goal_3" />
-                                    <option value="goal_4" label="goal_4" />
-                                  </Form.Control> */}
                                   <input
                                     list="goals"
                                     placeholder="Choose or Create a Goal"
@@ -156,13 +155,30 @@ export default (props) => {
                                     onChange={handleChange}
                                     id="goals"
                                   >
+                                    {goals}
+                                  </datalist>
+                                  {/* <Field
+                                    list="goals"
+                                    placeholder="Choose or Create a Goal"
+                                    name={`goal_updates[${index}].goal`}
+                                    value={values.goal_updates[index].goal}
+                                    onChange={handleChange}
+                                    as="input"
+                                  />
+                                  <Field
+                                    name={`goal_updates[${index}].goal`}
+                                    value={values.goal_updates[index].goal}
+                                    onChange={handleChange}
+                                    id="goals"
+                                    as="datalist"
+                                  >
                                     <option value="Chrome" />
                                     <option value="Firefox" />
                                     <option value="Internet Explorer" />
                                     <option value="Opera" />
                                     <option value="Safari" />
                                     <option value="Microsoft Edge" />
-                                  </datalist>
+                                  </Field> */}
                                 </Form.Group>
                                 <Form.Group>
                                   <CKEditor
@@ -180,6 +196,14 @@ export default (props) => {
                                       </Form.Text>
                                     )}
                                 </Form.Group>
+                                {values.goal_updates.length > 1 ? (
+                                  <Button
+                                    type="button"
+                                    onClick={() => arrayHelpers.remove(index)}
+                                  >
+                                    Delete Goal Update
+                                  </Button>
+                                ) : null}
                               </React.Fragment>
                             );
                           })}
@@ -218,10 +242,7 @@ export default (props) => {
                                       value=""
                                       label="Choose your Tracked Metric"
                                     />
-                                    <option value="metric_1" label="metric_1" />
-                                    <option value="metric_2" label="metric_2" />
-                                    <option value="metric_3" label="metric_3" />
-                                    <option value="metric_4" label="metric_4" />
+                                    {habits}
                                   </Form.Control>
                                 </Form.Group>
                                 <Form.Group>
@@ -233,6 +254,12 @@ export default (props) => {
                                       ].content = editor.getData();
                                     }}
                                   />
+                                  <input
+                                    placeholder="Enter Metric Value"
+                                    name={`habit_updates[${index}].value`}
+                                    value={values.habit_updates[index].value}
+                                    onChange={handleChange}
+                                  />
                                   {errors.shortContent &&
                                     touched.shortContent && (
                                       <Form.Text className="text-danger">
@@ -240,6 +267,14 @@ export default (props) => {
                                       </Form.Text>
                                     )}
                                 </Form.Group>
+                                {values.habit_updates.length > 1 ? (
+                                  <Button
+                                    type="button"
+                                    onClick={() => arrayHelpers.remove(index)}
+                                  >
+                                    Delete Metric Update
+                                  </Button>
+                                ) : null}
                               </React.Fragment>
                             );
                           })}

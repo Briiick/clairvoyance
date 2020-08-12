@@ -8,6 +8,8 @@ class Post(models.Model):
     user = models.ForeignKey(User, models.CASCADE, related_name='user_posts')
     team = models.ForeignKey(Team, models.CASCADE, related_name='team_posts')
     title = models.TextField()
+    general_update = models.TextField()
+    future_tasks = models.TextField()
     goal_updates = models.ManyToManyField(GoalUpdate)
     habit_updates = models.ManyToManyField(HabitUpdate, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
