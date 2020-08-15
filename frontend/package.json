@@ -43,7 +43,9 @@
     ]
   },
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "remote-redux-devtools": "^0.5.16"
+  },
   "author": "",
   "license": "ISC",
   "description": ""

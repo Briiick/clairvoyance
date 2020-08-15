@@ -10,12 +10,14 @@ import Register from "./Pages/Auth/Register";
 import Articles from "./Pages/Articles";
 import Article from "./Pages/Articles/Single";
 import PostArticle from "./Pages/Articles/Create";
+import TeamSettings from "./Pages/Team/TeamSettings";
 
 const App = (props) => {
   return (
     <Router>
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/team" exact component={TeamSettings} />
         <Route path="/articles/:page" exact component={Articles} />
         <Route path="/article/:slug" exact component={Article} />
         <Route

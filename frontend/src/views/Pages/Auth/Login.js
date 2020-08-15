@@ -4,7 +4,7 @@ import { updateAccount } from "../../../store/actions_creators";
 import { Alert, Col, Form, Button, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import { loginSchema } from "../../../utils/validations";
-import { login } from "../../../utils/axios";
+import { login, API } from "../../../utils/axios";
 import Container from "../../Layouts/Container";
 import { Link } from "react-router-dom";
 
@@ -41,6 +41,23 @@ const Login = (props) => {
                     localStorage.setItem("clairovoyanceToken", res.data.key);
                     localStorage.setItem("loggedIn", true);
                     props.updateAccount(res.data);
+                    API.get("/users/user/", {
+                      headers: {
+                        Authorization: `Token ${localStorage.getItem(
+                          "clairovoyanceToken"
+                        )}`,
+                      },
+                    })
+                      .then((res) => {
+                        props.updateAccount(res.data);
+                      })
+                      .catch((err) => {
+                        setAlert({
+                          type: "danger",
+                          message:
+                            "Error in processing your data. Please refresh or contact the support.",
+                        });
+                      });
                   })
                   .catch((err) => {
                     setAlert({

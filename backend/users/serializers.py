@@ -8,9 +8,15 @@ from rest_auth.serializers import UserDetailsSerializer
 
 from users.models import Team, User
 
+class TeamUserDetailsSerializer(UserDetailsSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name', 'email' )
+
 class TeamSerializer(serializers.ModelSerializer):
     balance = BalanceSerializer(source='team_balance', many=True, default=None)
     agreements = AgreementSerializer(source='team_agreements', many=True, default=None)
+    users = TeamUserDetailsSerializer(many=True)
 
     class Meta:
         model = Team

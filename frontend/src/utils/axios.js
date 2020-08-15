@@ -74,7 +74,7 @@ async function login(data) {
     const response = await API.post("/users/login/", payload);
     return response;
   } catch (e) {
-    throw Error(e);
+    return e;
   }
 }
 

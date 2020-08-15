@@ -12,7 +12,7 @@ class TeamList(APIView):
     permission_classes = [IsOwner]
 
     def get(self, request, format=None):
-        teams = request.user.team_set.all()
+        teams = request.user.team_list.all()
         serializer = TeamSerializer(teams, many=True)
         return Response(serializer.data)
 

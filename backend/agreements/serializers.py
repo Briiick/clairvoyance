@@ -24,6 +24,8 @@ class BalanceSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.last_defaulted = validated_data.get('last_defaulted', instance.last_defaulted)
+        instance.last_checked = validated_data.get('last_checked', instance.last_checked)
+        instance.balance = validated_data.get('balance', instance.balance)
         instance.save()
 
         return instance
