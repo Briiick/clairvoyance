@@ -16,7 +16,7 @@ more-itertools==8.4.0
 oauthlib==3.1.0
 pluggy==0.6.0
 psycopg2==2.8.5
-py==1.9.0
+py==1.10.0
 pytest==3.6.0
 pytest-django==3.2.1
 python3-openid==3.1.0
